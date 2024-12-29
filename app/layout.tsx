@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,13 +23,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+        <head>
+            <title>Web Component with App Router</title>
+            {/* Web Component 스크립트 로드 */}
+            <Script src="/components/MyButton.js" type="module" strategy='lazyOnload' ></Script>
+        </head>
+        <body>
+        <header>
+            <h1>My App</h1>
+        </header>
+        <main>{children}</main>
+        <footer>© 2024 My App</footer>
+        </body>
+        </html>
+    );
 }
